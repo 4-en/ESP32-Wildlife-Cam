@@ -1,0 +1,13 @@
+# virtualenv
+venv/
+.venv/
+virtualenv/
+env/
+
+# python bytecode
+*.pyc
+*.pyo
+*.pyd
+
+# pycache
+__pycache__/
