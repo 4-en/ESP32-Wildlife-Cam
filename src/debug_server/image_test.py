@@ -2,6 +2,8 @@
 # receive image from esp32 cam and show it
 
 from fastapi import FastAPI, File, UploadFile
+# request models
+from pydantic import BaseModel
 import cv2
 
 app = FastAPI()
@@ -22,10 +24,13 @@ async def show_image(file: UploadFile = File(...)):
     cv2.destroyAllWindows()
     return {"filename": file.filename}
 
+class PrintPostMessage(BaseModel):
+    message: str
+
 @app.post("/printmessage/")
-async def print_message(message: str):
-    print(message)
-    return {"message": message}
+async def print_message(message: PrintPostMessage):
+    print(message.message)
+    return {"message": message.message}
 
 if __name__ == "__main__":
     import uvicorn
