@@ -2,6 +2,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include "esp_camera.h"
+#include <Test.h>
 
 // Camera pin definition
 #define PWDN_GPIO_NUM -1
@@ -28,6 +29,9 @@ const char* serverName = "http://192.168.0.3:8000/showimage/";
 void setup() {
   Serial.begin(115200);
   pinMode(2, OUTPUT);
+
+  // Test the library
+  int result = test_square(5);
 
   // Connect to Wi-Fi
   WiFi.begin(ssid, password);
