@@ -4,6 +4,8 @@ venv/
 virtualenv/
 env/
 
+uploads/
+
 # python bytecode
 *.pyc
 *.pyo

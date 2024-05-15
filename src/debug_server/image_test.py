@@ -1,28 +1,36 @@
+# server.py
 # test server for esp32 cam
 # receive image from esp32 cam and show it
 
-from fastapi import FastAPI, File, UploadFile
-# request models
+from fastapi import FastAPI, Request
 from pydantic import BaseModel
 import cv2
+import numpy as np
+import os
 
 app = FastAPI()
 
-@app.post("/uploadfile/")
-async def create_upload_file(file: UploadFile = File(...)):
-    with open(file.filename, "wb") as f:
-        f.write(file.file.read())
-    return {"filename": file.filename}
+UPLOAD_DIR = "uploads"
+if not os.path.exists(UPLOAD_DIR):
+    os.makedirs(UPLOAD_DIR)
+
 
 @app.post("/showimage/")
-async def show_image(file: UploadFile = File(...)):
-    with open(file.filename, "wb") as f:
-        f.write(file.file.read())
-    img = cv2.imread(file.filename)
-    cv2.imshow('image', img)
+async def show_image(image: Request):
+    data: bytes = await image.body()
+
+    # save jpg file
+    with open("uploads/test.jpg", "wb") as f:
+        f.write(data)
+
+    # read jpg file
+    img = cv2.imread("uploads/test.jpg")
+    img_np = np.array(img)
+    cv2.imshow("image", img_np)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
-    return {"filename": file.filename}
+
+    return {"message": "image received"}
 
 class PrintPostMessage(BaseModel):
     message: str
@@ -35,5 +43,3 @@ async def print_message(message: PrintPostMessage):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
-
