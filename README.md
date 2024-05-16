@@ -4,7 +4,7 @@ The aim of this project is to develop an advanced wildlife camera that leverages
 
 ## Features
 
-- [x] Motion Detection: Either with PIR sensor or with camera, depending on tests.
+- [ ] Motion Detection: Either with PIR sensor or with camera, depending on tests.
 - [ ] Photo Storage: Storing images on sd card with timestamp
 - [ ] Animal Species Detection: Analyse captured images and identify the species of animals
 - [ ] Button Controls: Allows users to manually adjust some setting settings (time, detection, image count) and start/stop detection.
