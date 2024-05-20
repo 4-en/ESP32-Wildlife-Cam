@@ -1,36 +1,66 @@
 # train mobile net for image classification on esp32
 
 import tensorflow as tf
-from tensorflow.keras.applications.mobilenet import MobileNet, preprocess_input, decode_predictions
-from tensorflow.keras.preprocessing import image
-import numpy as np
+from tensorflow.keras.applications import MobileNetV2
+from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
+from tensorflow.keras.models import Model
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-# Load the MobileNet model pre-trained on ImageNet
-model = MobileNet(weights='imagenet')
+DATASET_PATH = './animals'
+NAME_PATH = './animal_names.txt'
 
-# example image
-image_path = "./cat.jpg"
+names = []
+with open(NAME_PATH, 'r') as f:
+    for line in f:
+        names.append(line.strip())
 
-# Load the image with the correct target size for MobileNet
-img = image.load_img(image_path, target_size=(224, 224))
+N_CLASSES = len(names)
 
-# Convert the image to a numpy array
-img_array = image.img_to_array(img)
+# Load the MobileNetV2 model, excluding the top layers
+base_model = MobileNetV2(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 
-# Add a batch dimension
-img_array = np.expand_dims(img_array, axis=0)
+# Freeze the base model
+base_model.trainable = False
 
-# Preprocess the image for the MobileNet model
-img_array = preprocess_input(img_array)
+# Add custom layers on top of the base model
+x = base_model.output
+x = GlobalAveragePooling2D()(x)
+x = Dense(1024, activation='relu')(x)
+predictions = Dense(N_CLASSES, activation='softmax')(x)
 
-# Make predictions
-predictions = model.predict(img_array)
+# Create the full model
+model = Model(inputs=base_model.input, outputs=predictions)
 
-# Decode the predictions
-decoded_predictions = decode_predictions(predictions, top=3)[0]
+# Compile the model
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-# Print the top-3 predictions
-for i, (imagenet_id, label, score) in enumerate(decoded_predictions):
-    print(f'{i+1}: {label} ({score:.2f})')
+# Prepare the data
+train_datagen = ImageDataGenerator(rescale=0.2, validation_split=0.2)
 
-print("Model ran successfully!")
+train_generator = train_datagen.flow_from_directory(
+    DATASET_PATH,
+    target_size=(224, 224),
+    batch_size=32,
+    class_mode='categorical',
+    subset='training'
+)
+
+validation_generator = train_datagen.flow_from_directory(
+    DATASET_PATH,
+    target_size=(224, 224),
+    batch_size=32,
+    class_mode='categorical',
+    subset='validation'
+)
+
+# Train the model
+model.fit(
+    train_generator,
+    steps_per_epoch=train_generator.samples // train_generator.batch_size,
+    validation_data=validation_generator,
+    validation_steps=validation_generator.samples // validation_generator.batch_size,
+    epochs=10
+)
+
+# Save the model
+model.save('mobilenet_v2_model.h5')
