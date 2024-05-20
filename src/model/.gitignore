@@ -13,3 +13,8 @@ uploads/
 
 # pycache
 __pycache__/
+
+
+# tensorflow
+animals/
+*.h5
