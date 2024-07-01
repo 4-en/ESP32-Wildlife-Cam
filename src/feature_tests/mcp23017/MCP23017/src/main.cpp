@@ -8,7 +8,7 @@
 
 /* different I2C pins, since default pins are used by camera */
 #define SCL_PIN 13
-#define SDA_PIN 12
+#define SDA_PIN 33
 #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
 #define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
 
@@ -66,8 +66,6 @@ void testscrolltext(void);
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  Serial.println("Sleeping for 5 seconds...");
-  delay(5000);
   Wire.setPins(SDA_PIN, SCL_PIN);
   Wire.begin();
 
