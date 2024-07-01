@@ -19,7 +19,7 @@
 #define MCP_BUTTON_PIN_2 1
 #define MCP_BUTTON_PIN_3 2
 #define MCP_BUTTON_PIN_4 3
-#define MCP_BUTTON_PIN_5 4
+#define MCP_PIR_PIN 4
 
 Adafruit_MCP23X17 mcp;
 auto debounce = new bool[4];
@@ -107,6 +107,8 @@ void setup() {
   mcp.pinMode(MCP_BUTTON_PIN_3, INPUT_PULLUP);
   mcp.pinMode(MCP_BUTTON_PIN_4, INPUT_PULLUP);
 
+  mcp.pinMode(MCP_PIR_PIN, INPUT);
+
     // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
   if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
     Serial.println(F("SSD1306 allocation failed"));
@@ -132,6 +134,8 @@ void setup() {
   // unless that's what you want...rather, you can batch up a bunch of
   // drawing operations and then update the screen all at once by calling
   // display.display(). These examples demonstrate both approaches...
+
+  /*
 
   testdrawline();      // Draw many lines
 
@@ -163,12 +167,25 @@ void setup() {
   display.invertDisplay(false);
   delay(1000);
 
+  */
+
 
 
   Serial.println("Setup done. Starting loop...");
 }
+bool pirState = false;
+void logPir() {
+  if(mcp.digitalRead(MCP_PIR_PIN) == HIGH && !pirState) {
+    pirState = true;
+    Serial.println("PIR sensor detected motion");
+  } else {
+    pirState = false;
+  }
+}
 
 void loop() {
+
+  logPir();
   // put your main code here, to run repeatedly:
   //Serial.println("Hello World");
 
@@ -176,6 +193,7 @@ void loop() {
     if(debounce[0] == 0) {
       debounce[0] = 1;
       Serial.println("Button 1 pressed");
+      testfillrect();
     }
   } else {
     debounce[0] = 0;
@@ -185,6 +203,7 @@ void loop() {
     if(debounce[1] == 0) {
       debounce[1] = 1;
       Serial.println("Button 2 pressed");
+      testdrawline();
     }
   } else {
     debounce[1] = 0;
@@ -194,6 +213,7 @@ void loop() {
     if(debounce[2] == 0) {
       debounce[2] = 1;
       Serial.println("Button 3 pressed");
+      testdrawrect();
     }
   } else {
     debounce[2] = 0;
@@ -203,6 +223,7 @@ void loop() {
     if(debounce[3] == 0) {
       debounce[3] = 1;
       Serial.println("Button 4 pressed");
+      testscrolltext();
     }
   } else {
     debounce[3] = 0;

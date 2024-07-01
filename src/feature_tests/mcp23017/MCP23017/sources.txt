@@ -6,3 +6,11 @@ https://github.com/gewisser/GyverOLEDMenu
 
 // general
 https://randomnerdtutorials.com/getting-started-freenove-esp32-wrover-cam/
+
+// i2c
+// https://www.instructables.com/OLED-I2C-DISPLAY-WITH-ARDUINO-Tutorial/
+https://registry.platformio.org/libraries/adafruit/Adafruit%20MCP23017%20Arduino%20Library/examples/mcp23xxx_button/mcp23xxx_button.ino
+
+// datasheets
+https://www.mpja.com/download/31227sc.pdf // pir
+https://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf // mcp23017
