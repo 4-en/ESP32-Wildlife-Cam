@@ -1,2 +1,8 @@
 https://www.instructables.com/Adding-Buttons-to-Your-Project-With-an-MCP23017-GP/
 https://github.com/shan-mcarthur/GpioExpanderLib/blob/main/src/GpioExpanderLib.h
+
+Menu UI
+https://github.com/gewisser/GyverOLEDMenu
+
+// general
+https://randomnerdtutorials.com/getting-started-freenove-esp32-wrover-cam/
