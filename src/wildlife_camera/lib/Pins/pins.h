@@ -1,3 +1,8 @@
+#ifndef PINS_H
+#define PINS_H
+
+// on board LED
+#define LED_BUILTIN 2
 
 // Camera pin definition
 #define PWDN_GPIO_NUM -1
@@ -19,10 +24,12 @@
 
 // SDMMC card pins
 #define SD_MMC_CMD 15
-#define SD_MMC_CLK 14 
-#define SD_MMC_D0  2
+#define SD_MMC_CLK 14
+#define SD_MMC_D0 2
 
 /* different I2C pins, since default pins are used by camera */
 #define SCL_PIN 13
 #define SDA_PIN 33
 #define UNUSED_PIN 32 // not used, but defined to remembe that which pin is not used
+
+#endif
