@@ -29,7 +29,7 @@
 /* different I2C pins, since default pins are used by camera */
 #define SCL_PIN 13
 #define SDA_PIN 33
-#define UNUSED_PIN 32 // not used, but defined to remembe that which pin is not used
+#define UNUSED_PIN 32 // not used, but defined to remember that which pin is not used
 
 
 // MCP23017 pins
