@@ -16,3 +16,13 @@
 #define VSYNC_GPIO_NUM 25
 #define HREF_GPIO_NUM 23
 #define PCLK_GPIO_NUM 22
+
+// SDMMC card pins
+#define SD_MMC_CMD 15
+#define SD_MMC_CLK 14 
+#define SD_MMC_D0  2
+
+/* different I2C pins, since default pins are used by camera */
+#define SCL_PIN 13
+#define SDA_PIN 33
+#define UNUSED_PIN 32 // not used, but defined to remembe that which pin is not used

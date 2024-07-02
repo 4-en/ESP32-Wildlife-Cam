@@ -3,7 +3,7 @@
 #include <HTTPClient.h>
 #include "esp_camera.h"
 #include <Test.h>
-#include "pins.h"
+#include <pins.h>
 
 const char* ssid = "Forsen";
 const char* password = "9999999999999999";
