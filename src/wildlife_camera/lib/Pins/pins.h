@@ -2,7 +2,6 @@
 #define PINS_H
 
 // on board LED
-#define LED_BUILTIN 2
 
 // Camera pin definition
 #define PWDN_GPIO_NUM -1
@@ -31,5 +30,13 @@
 #define SCL_PIN 13
 #define SDA_PIN 33
 #define UNUSED_PIN 32 // not used, but defined to remembe that which pin is not used
+
+
+// MCP23017 pins
+#define MCP_BUTTON_PIN_1 0
+#define MCP_BUTTON_PIN_2 1
+#define MCP_BUTTON_PIN_3 2
+#define MCP_BUTTON_PIN_4 3
+#define MCP_PIR_PIN 4
 
 #endif

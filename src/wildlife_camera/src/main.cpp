@@ -3,6 +3,7 @@
 #include <Menu.h>
 #include <Wire.h>
 #include <pins.h>
+#include <Adafruit_GFX.h>
 
 void scan_i2c()
 {
