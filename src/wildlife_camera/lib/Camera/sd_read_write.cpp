@@ -8,13 +8,12 @@ bool writeFB(fs::FS &fs, const char * path, uint8_t *fb, size_t len) {
         return false;
     }
 
-    uint8_t framebuffer_static[32 * 1024];
-    memcpy(framebuffer_static, fb,  len);
-    file.write(framebuffer_static, len);
-
-    file.close();
-
-    Serial.println("Image saved");
+    if(file.write(fb, len)){
+        Serial.println("File written");
+    } else {
+        Serial.println("Write failed");
+        return false;
+    }
 
     return true;
 }

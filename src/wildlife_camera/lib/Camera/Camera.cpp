@@ -142,3 +142,7 @@ bool setup_mmc() {
     Serial.printf("Used space: %lluMB\r\n", SD_MMC.usedBytes() / (1024 * 1024));
     */
 }
+
+void write_text(const char * path, const char * message) {
+    writeFile(SD_MMC, path, message);
+}

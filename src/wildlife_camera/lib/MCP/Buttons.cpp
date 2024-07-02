@@ -16,7 +16,8 @@ bool setup_mcp()
     return true;
 }
 bool* debounce = new bool[4];
-bool setup_button()
+int pir_state = 0;
+bool setup_buttons()
 {
     debounce[0] = 0;
     debounce[1] = 0;
@@ -27,6 +28,12 @@ bool setup_button()
     mcp.pinMode(MCP_BUTTON_PIN_2, INPUT_PULLUP);
     mcp.pinMode(MCP_BUTTON_PIN_3, INPUT_PULLUP);
     mcp.pinMode(MCP_BUTTON_PIN_4, INPUT_PULLUP);
+
+    mcp.pinMode(MCP_PIR_PIN, INPUT);
+
+    mcp.pinMode(MCP_LED_PIN_1, OUTPUT);
+
+    return true;
 }
 
 bool check_pressed(int pin, int button)
@@ -63,4 +70,25 @@ bool is_button_pressed(int button) {
         break;
     }
     return false;
+}
+
+bool detect_pir()
+{
+    if (mcp.digitalRead(MCP_PIR_PIN) == HIGH)
+    {
+        if (pir_state == 25)
+        {
+            pir_state = 0;
+            return true;
+        }
+        pir_state++;
+        return false;
+    }
+    pir_state = 0;
+    return false;
+}
+
+void set_mcp_led(int led, bool state)
+{
+    mcp.digitalWrite(led, state);
 }

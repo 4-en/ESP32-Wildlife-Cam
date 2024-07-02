@@ -12,3 +12,7 @@ bool setup_mcp();
 bool setup_buttons();
 
 bool is_button_pressed(int button);
+
+bool detect_pir();
+
+void set_mcp_led(int led, bool state);

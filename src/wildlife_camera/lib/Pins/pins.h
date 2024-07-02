@@ -38,5 +38,6 @@
 #define MCP_BUTTON_PIN_3 2
 #define MCP_BUTTON_PIN_4 3
 #define MCP_PIR_PIN 4
+#define MCP_LED_PIN_1 5
 
 #endif
