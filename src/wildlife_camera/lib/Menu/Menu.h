@@ -13,6 +13,7 @@
 #define MM_MIN_DELAY 3
 #define MM_SENSITIVITY 4
 #define MM_BURST 5
+#define MM_CAPTURED_COUNT 6
 
 #define RTC_SETTING_YEAR 0
 #define RTC_SETTING_MONTH 1

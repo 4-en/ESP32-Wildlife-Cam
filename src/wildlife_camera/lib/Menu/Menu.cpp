@@ -12,8 +12,8 @@ DS3231 rtc;
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 int menu_state = MAIN_MENU;
 
-int main_menu_items[] = {MM_DETECT_MOTION, MM_CALIBRATE_PIR, MM_SET_RTC, MM_MIN_DELAY, MM_SENSITIVITY, MM_BURST};
-int main_menu_item_count = 6;
+int main_menu_items[] = {MM_DETECT_MOTION, MM_CALIBRATE_PIR, MM_SET_RTC, MM_MIN_DELAY, MM_SENSITIVITY, MM_BURST, MM_CAPTURED_COUNT };
+int main_menu_item_count = 7;
 int main_menu_selected = 0;
 
 int rtc_settings[] = {RTC_SETTING_YEAR, RTC_SETTING_MONTH, RTC_SETTING_DAY, RTC_SETTING_HOUR, RTC_SETTING_MINUTE, RTC_SETTING_SECOND};
@@ -28,6 +28,8 @@ bool pmFlag;
 int min_delay = 1;
 int sensitivity = 5;
 int burst = 1;
+
+int captured_count = 0;
 
 void init_rtc() {
     rtc.setClockMode(false);
@@ -64,7 +66,7 @@ String getTimestamp() {
     month = rtc.getMonth(century);
     year = rtc.getYear();
 
-    String timestamp = String("20") + String(year) + "-" + String(month) + "-" + String(day) + "-" + String(hour) + ":" + String(minute) + ":" + String(second);
+    String timestamp = String("20") + String(year) + "_" + String(month) + "_" + String(day) + "_" + String(hour) + "-" + String(minute) + "-" + String(second);
     return timestamp;
 }
 
@@ -106,6 +108,11 @@ void draw_main_menu() {
                 display.print("Burst: ");
                 display.println(burst);
                 break;
+            case MM_CAPTURED_COUNT:
+                display.print("Captured: ");
+                display.println(captured_count);
+                break;
+
         }
     }
 
@@ -163,6 +170,8 @@ void handle_main_menu_input(int input) {
                         burst = 0;
                     }
                     break;
+                default:
+                    break;
             }
             break;
 
@@ -214,7 +223,7 @@ void draw_rtc_menu() {
             display.setTextColor(SSD1306_BLACK, SSD1306_WHITE);
             display.print(">");
             display.setTextColor(SSD1306_WHITE);
-            display.print("Year: ");
+            display.print("Year: 20");
             display.println(rtc_setting_values[RTC_SETTING_YEAR]);
             break;
         case RTC_SETTING_MONTH:
@@ -459,9 +468,13 @@ void tick_detect_motion() {
         for(int i = 0; i < burst; i++) {
             // take a picture and save it (with timestamp
             auto fb = take_picture();
-            auto timestamp = millis();
-            String pathString = "/image_" + String(timestamp) + ".jpg";
+            captured_count++;
+            auto timestamp = getTimestamp();
+            auto cpu_time = millis();
+            String pathString = "/image_" + String(timestamp) + "_" + String(cpu_time) + ".jpg";
             const char* path = pathString.c_str();
+            Serial.print("Saving picture to: ");
+            Serial.println(path);
             save_picture(fb, path);
             release_picture(fb);
             delay(100);
