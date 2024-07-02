@@ -32,6 +32,7 @@ bool setup_buttons()
     mcp.pinMode(MCP_PIR_PIN, INPUT);
 
     mcp.pinMode(MCP_LED_PIN_1, OUTPUT);
+    set_mcp_led(MCP_LED_PIN_1, LOW);
 
     return true;
 }
@@ -72,11 +73,18 @@ bool is_button_pressed(int button) {
     return false;
 }
 
+int pir_sensitivity = 5;
+
+void set_pir_sensitivity(int sensitivity)
+{
+    pir_sensitivity = sensitivity;
+}
+
 bool detect_pir()
 {
     if (mcp.digitalRead(MCP_PIR_PIN) == HIGH)
     {
-        if (pir_state == 25)
+        if (pir_state >= pir_sensitivity * 5)
         {
             pir_state = 0;
             return true;

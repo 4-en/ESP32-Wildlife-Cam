@@ -14,3 +14,7 @@ https://registry.platformio.org/libraries/adafruit/Adafruit%20MCP23017%20Arduino
 // datasheets
 https://www.mpja.com/download/31227sc.pdf // pir
 https://ww1.microchip.com/downloads/en/DeviceDoc/20001952C.pdf // mcp23017
+
+// rtc
+https://howtomechatronics.com/tutorials/arduino/arduino-ds3231-real-time-clock-tutorial/
+http://www.rinkydinkelectronics.com/library.php?id=73

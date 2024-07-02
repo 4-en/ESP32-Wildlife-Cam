@@ -3,7 +3,6 @@
 #include <Menu.h>
 #include <Wire.h>
 #include <pins.h>
-#include <Adafruit_GFX.h>
 #include <Buttons.h>
 
 void scan_i2c()
@@ -72,6 +71,14 @@ void setup()
         }
     }
 
+    if(!init_display())
+    {
+        Serial.println("Display setup failed");
+        while(1)
+        {
+        }
+    }
+    draw_menu();
     // write_text("/test.txt", "Hello World!\n");
 
 
@@ -80,6 +87,9 @@ void setup()
 int pir_count = 0;
 void loop()
 {
+    tick_menu();
+    delay(100);
+    /*
     if(detect_pir())
     {
         Serial.printf("PIR detected %d times\n", pir_count++);
@@ -88,7 +98,7 @@ void loop()
 
         String pathString = "/image" + String(pir_count) + ".jpg";
         const char* path = pathString.c_str();
-        save_picture(fb, path);
+        // save_picture(fb, path);
 
         // free up memory
         release_picture(fb);
@@ -98,4 +108,5 @@ void loop()
         delay(10000);
         set_mcp_led(MCP_LED_PIN_1, LOW);
     }
+    */
 }
