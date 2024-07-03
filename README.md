@@ -4,20 +4,15 @@ The aim of this project is to develop an advanced wildlife camera that leverages
 
 ## Features
 
-- [ ] Motion Detection: Either with PIR sensor or with camera, depending on tests.
-- [ ] Photo Storage: Storing images on sd card with timestamp
-- [ ] Animal Species Classification: Analyse captured images and identify the species of animals
-- [ ] Button Controls: Allows users to manually adjust some setting settings (time, detection, image count) and start/stop detection.
-- [ ] Display: Incorporates a small screen to display a menu for controls, information about detected animals, and other relevant data.
+- [x] Motion Detection: Either with PIR sensor or with camera, depending on tests.
+- [x] Photo Storage: Storing images on sd card with timestamp
+- [x] Button Controls: Allows users to manually adjust some setting settings (time, detection, image count) and start/stop detection.
+- [x] Display: Incorporates a small screen to display a menu for controls, information about detected animals, and other relevant data.
 - [ ] Optional: Wireless interface (viewing images, controls)
 
 ## Roadmap
 - [x] Setup environment
 - [x] Test camera
-- [ ] Test storage
-- [ ] Test motion detection methods
-- [ ] First version without classification and controls
-- [ ] Button controls and display
-- [ ] Test TensorFlow Lite on ESP32
-- [ ] Train classification model
-- [ ] Apply classification after detection
+- [x] Test storage
+- [x] Test motion detection methods
+- [x] Button controls and display
