@@ -16,3 +16,7 @@ The aim of this project is to develop an advanced wildlife camera that leverages
 - [x] Test storage
 - [x] Test motion detection methods
 - [x] Button controls and display
+
+![IMG_20240703_001324](https://github.com/4-en/ESP32-Wildlife-Cam/assets/105049118/cc686615-8be1-4352-9b53-202e2415e47c)
+![IMG_20240703_001601](https://github.com/4-en/ESP32-Wildlife-Cam/assets/105049118/8346837b-ad7b-4bd8-a966-84b8461e71cb)
+![IMG_20240703_001422](https://github.com/4-en/ESP32-Wildlife-Cam/assets/105049118/87e90419-7448-40b4-bd7c-f3828f0efab1)
